@@ -12,7 +12,7 @@ class Contact(Base):
     phone_fax = db.Column(db.String(50))
     phone_other = db.Column(db.String(50))
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
-    organisation = db.Column(db.Integer, db.ForeignKey('organisation.id'), nullable=False) 
+    org_id = db.Column(db.Integer, db.ForeignKey('organisation.id'), nullable=False, info={"label": "Organisation"})
 
 
     def __repr__(self):

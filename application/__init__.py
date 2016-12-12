@@ -75,6 +75,7 @@ def create_app():
     register_jinja(app)
     register_error_handle(app)
     register_hooks(app)
+    register_context_processor(app)
 
     return app
 
@@ -177,6 +178,15 @@ def register_hooks(app):
             delta = time.time() - g._before_request_time
             response.headers['X-Render-Time'] = delta * 1000
         return response
+
+def register_context_processor(app):
+    @app.context_processor
+    def context_processor():
+        from .forms import AddOrganisationForm, AddContactForm
+        OrgForm = AddOrganisationForm(request.form)
+        ConForm = AddContactForm(request.form)
+        return dict(OrgForm=OrgForm,
+            ConForm=ConForm)
 
 
 def _get_template_name(template_reference):
