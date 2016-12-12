@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% from '_form.html' import vertical_field %}
+
+{% block page_title %}Add organisation{% endblock %}
+{% block page_js %}
+    <script src="/pages/crm/add/add_organisation.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/crm/add/add_organisation.css"/>{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Add organisation</h1>
+
+                <form method="post" action="{{ url_for('crm.add_organisation') }}">
+                    {{ form.csrf_token() }}
+                    {% for i in form %}
+                    {% if i.id == 'csrf_token' %}
+                    {% else %}
+                    {{ vertical_field(i) }}
+                    {% endif %}
+                    {% endfor %}	    
+                    <button type="submit" class="btn btn-primary">Add organisation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

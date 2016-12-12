@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block page_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    {% block meta %}{% endblock %}
+    <link rel="Shortcut Icon" href="/static/image/favicon.png">
+    {# CSS libs #}
+    <link rel="stylesheet" href="/static/css/libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/libs/font-awesome.min.css"/>
+    {# CSS layout #}
+    <link rel="stylesheet" href="/static/css/bootstrap.theme.css"/>
+    <link rel="stylesheet" href="/static/css/common.css"/>
+    <link rel="stylesheet" href="/static/output/macros.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    {# CSS page #}
+    {% block page_css %}{% endblock %}
+    {# JS global vars #}
+    <script type="text/javascript">
+        var g = {
+            domain: "{{ config.SITE_DOMAIN }}",
+            csrfToken: "{{ csrf_token() }}",
+            rules: {{ rules|safe }},
+            method: "{{ request.method }}",
+            signin: {% if g.user %}true{% else %}false{% endif %},
+            userId: {% if g.user %}{{ g.user.id }}{% else %}false{% endif %},
+        };
+    </script>
+    {# JS libs #}
+    <script src="/static/js/libs/respond.min.js"></script>
+    <script src="/static/js/libs/jquery.min.js"></script>
+    <script src="/static/js/libs/bootstrap.min.js"></script>
+    <script src="/static/js/init.js"></script>
+</head>
+
+<body>
+
+{# Flash message #}
+{% with message = get_flashed_messages()[0] %}
+    {% if message %}
+        <div class="alert alert-info flash-message">{{ message }}</div>
+    {% endif %}
+{% endwith %}
+{% include 'nav/nav.html' %}
+
+{# Please DO NOT change the id below #}
+<div id="main">
+    {% block page_content %}{% endblock %}
+</div>
+
+{% include 'footer/footer.html' %}
+
+{% include 'crm/modals/add_organisation.html'%}
+
+{# JS layout #}
+<script src="/static/js/layout.js"></script>
+
+{# JS macros #}
+<script src="/static/output/macros.js"></script>
+
+{# JS page #}
+{% block page_js %}{% endblock %}
+
+</body>
+</html>

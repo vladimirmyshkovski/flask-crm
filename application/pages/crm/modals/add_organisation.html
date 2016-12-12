@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% from '_form.html' import vertical_field %}
+
+{% block page_title %}Add organisation{% endblock %}
+{% block page_js %}
+    <script src="/pages/crm/modals/add_organisation.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/crm/modals/add_organisation.css"/>{% endblock %}
+{% block page_content %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add organisation</h4>
+      </div>
+      <div class="modal-body">
+                <form method="post" class="form-signin" action="{{ url_for('crm.add_organisation') }}">
+                    {{ form.csrf_token() }}
+                    {% for i in form %}
+                    {% if i.id == 'csrf_token' %}
+                    {% else %}
+                    {{ vertical_field(i) }}
+                    {% endif %}
+                    {% endfor %}	    
+                    <button type="submit" class="btn btn-primary">Add organisation</button>
+                </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
