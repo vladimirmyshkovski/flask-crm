@@ -182,11 +182,19 @@ def register_hooks(app):
 def register_context_processor(app):
     @app.context_processor
     def context_processor():
-        from .forms import AddOrganisationForm, AddContactForm
+        from .forms import AddOrganisationForm, AddContactForm, AddProjectForm, AddActivityForm, AddInvoiceForm
         OrgForm = AddOrganisationForm(request.form)
         ConForm = AddContactForm(request.form)
-        return dict(OrgForm=OrgForm,
-            ConForm=ConForm)
+        ProForm = AddProjectForm(request.form)
+        ActForm = AddActivityForm(request.form)
+        InvForm = AddInvoiceForm(request.form)
+        return dict(
+            OrgForm=OrgForm,
+            ConForm=ConForm,
+            ProForm=ProForm,
+            ActForm=ActForm,
+            InvForm=InvForm
+            )
 
 
 def _get_template_name(template_reference):

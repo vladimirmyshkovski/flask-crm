@@ -1,0 +1,43 @@
+
+{% block page_js %}
+    <script src="/pages/crm/modals/add_project.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>{% endblock %}
+    
+{% block page_css %}  
+    <link rel="stylesheet" href="/pages/crm/modals/add_project.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+    {% endblock %}
+<div class="modal fade" id="myModalPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add project</h4>
+      </div>
+      <div class="modal-body">
+                <form method="post" class="form-signin" action="{{ url_for('crm.add_project') }}">
+                    {{ ProForm.csrf_token() }}
+                    {% for i in ProForm %}
+                    {% if i.id == 'csrf_token' %}
+                    {% else %}
+                    {{ vertical_field(i) }}
+                    {% endif %}
+                    {% endfor %}  
+
+  
+                    <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add project</button>
+                
+        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-primary">Add project</button-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+$('#start_date, #end_date').datepicker({
+  format: 'yyyy-mm-dd'
+});
+</script>
+

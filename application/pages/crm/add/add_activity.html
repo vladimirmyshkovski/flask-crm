@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% from '_form.html' import vertical_field %}
+
+{% block page_title %}Add activity{% endblock %}
+{% block page_js %}
+    <script src="/pages/crm/add/add_activity.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/crm/add/add_activity.css"/>{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Add activity</h1>
+
+                <form method="post" action="{{ url_for('crm.add_activity') }}">
+                    {{ ActForm.csrf_token() }}
+                    {% for i in ActForm %}
+                    {% if i.id == 'csrf_token' %}
+                    {% else %}
+                    {{ vertical_field(i) }}
+                    {% endif %}
+                    {% endfor %}      
+                    <button type="submit" class="btn btn-primary">Add activity</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -12,6 +12,7 @@ bp = Blueprint('account', __name__)
 @VisitorPermission()
 def signin():
     """Signin"""
+    db.create_all()
     form = SigninForm()
     if form.validate_on_submit():
         signin_user(form.user)

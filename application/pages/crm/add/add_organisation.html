@@ -13,8 +13,8 @@
                 <h1>Add organisation</h1>
 
                 <form method="post" action="{{ url_for('crm.add_organisation') }}">
-                    {{ form.csrf_token() }}
-                    {% for i in form %}
+                    {{ OrgForm.csrf_token() }}
+                    {% for i in OrgForm %}
                     {% if i.id == 'csrf_token' %}
                     {% else %}
                     {{ vertical_field(i) }}

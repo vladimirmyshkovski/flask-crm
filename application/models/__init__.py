@@ -6,3 +6,6 @@ from .base import *
 from .organisation import *
 
 from .contact import *
+from .project import *
+from .activity import *
+from .invoice import *

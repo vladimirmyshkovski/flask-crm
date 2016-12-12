@@ -39,8 +39,14 @@
 
 <body>
 
+{% from '_form.html' import vertical_field %}
 {% include 'crm/modals/add_organisation.html' %}
 {% include 'crm/modals/add_contact.html' %}
+{% include 'crm/modals/add_project.html' %}
+{% include 'crm/modals/add_activity.html' %}
+{% include 'crm/modals/add_invoice.html' %}
+
+
 
 {# Flash message #}
 {% with message = get_flashed_messages()[0] %}

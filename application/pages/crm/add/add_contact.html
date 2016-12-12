@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% from '_form.html' import vertical_field %}
 
-{% block page_title %}Add organisation{% endblock %}
+{% block page_title %}Add contact{% endblock %}
 {% block page_js %}
     <script src="/pages/crm/add/add_contact.js"></script>{% endblock %}
 {% block page_css %}
@@ -10,17 +10,17 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Add organisation</h1>
+                <h1>Add contact</h1>
 
-                <form method="post" action="{{ url_for('crm.add_organisation') }}">
-                    {{ form.csrf_token() }}
-                    {% for i in form %}
+                <form method="post" action="{{ url_for('crm.add_contact') }}">
+                    {{ ConForm.csrf_token() }}
+                    {% for i in ConForm %}
                     {% if i.id == 'csrf_token' %}
                     {% else %}
                     {{ vertical_field(i) }}
                     {% endif %}
                     {% endfor %}	    
-                    <button type="submit" class="btn btn-primary">Add organisation</button>
+                    <button type="submit" class="btn btn-primary">Add contact</button>
                 </form>
             </div>
         </div>
