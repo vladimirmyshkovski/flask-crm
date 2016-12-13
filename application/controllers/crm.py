@@ -93,3 +93,12 @@ def add_invoice():
             return redirect(url_for('crm.crm'))
     return render_template('crm/add/add_invoice.html')
 
+
+@bp.route('/view/organisations', methods=['GET', 'POST'])
+@UserPermission()
+def view_organisations():
+    """View organisations"""
+    orgs = Organisation.query.filter_by(created_by=g.user.id).all()
+    columns = [o.key for o in Organisation.__table__.columns]
+    return render_template('crm/view/view_organisations.html', columns=columns, orgs=orgs)
+
