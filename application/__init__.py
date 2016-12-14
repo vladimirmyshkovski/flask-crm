@@ -182,18 +182,21 @@ def register_hooks(app):
 def register_context_processor(app):
     @app.context_processor
     def context_processor():
+        from .models import db
         from .forms import AddOrganisationForm, AddContactForm, AddProjectForm, AddActivityForm, AddInvoiceForm
         OrgForm = AddOrganisationForm(request.form)
         ConForm = AddContactForm(request.form)
         ProForm = AddProjectForm(request.form)
         ActForm = AddActivityForm(request.form)
         InvForm = AddInvoiceForm(request.form)
+        tables = list(db.metadata.tables.keys())
         return dict(
             OrgForm=OrgForm,
             ConForm=ConForm,
             ProForm=ProForm,
             ActForm=ActForm,
-            InvForm=InvForm
+            InvForm=InvForm,
+            tables=tables,
             )
 
 

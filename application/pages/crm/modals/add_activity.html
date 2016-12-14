@@ -1,8 +1,7 @@
 
-{% block page_js %}
-    <script src="/pages/crm/modals/add_activity.js"></script>{% endblock %}
+{% block page_js %}{% endblock %}
 {% block page_css %}  
-    <link rel="stylesheet" href="/pages/crm/modals/add_activity.css"/>{% endblock %}
+    <link rel="stylesheet" href="/pages/crm/modals/add.css"/>{% endblock %}
 <div class="modal fade" id="myModalAct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,7 +10,7 @@
         <h4 class="modal-title" id="myModalLabel">Add activity</h4>
       </div>
       <div class="modal-body">
-                <form method="post" class="form-signin" action="{{ url_for('crm.add_activity') }}">
+                <form method="post" class="form-signin" action="/add/activity">
                     {{ ActForm.csrf_token() }}
                     {% for i in ActForm %}
                     {% if i.id == 'csrf_token' %}
@@ -19,13 +18,8 @@
                     {{ vertical_field(i) }}
                     {% endif %}
                     {% endfor %}  
-
-  
-                    <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add activity</button>
-                
-        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary">Add organisation</button-->
-        </form>
+                  <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add activity</button>
+                  </form>
       </div>
     </div>
   </div>

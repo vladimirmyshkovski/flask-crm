@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% from '_form.html' import vertical_field %}
+
+{% block page_title %}Add {{keyword}}{% endblock %}
+{% block page_js %}
+    <script src="/pages/crm/add/add.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/crm/add/add.css"/>{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Add {{keyword}}</h1>
+
+                <form method="post" action="/add/{{keyword}}">
+                    {{ form.csrf_token() }}
+                    {% for i in form %}
+                    {% if i.id == 'csrf_token' %}
+                    {% else %}
+                    {{ vertical_field(i) }}
+                    {% endif %}
+                    {% endfor %} 
+                    <button type="submit" class="btn btn-primary">Add {{keyword}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

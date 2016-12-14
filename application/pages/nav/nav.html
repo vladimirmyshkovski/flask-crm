@@ -5,9 +5,15 @@
             <a class="navbar-brand" href="{{ url_for('site.index') }}">
                 Flask-Crm
             </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
         </div>
 
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="nav-index">
                     <a href="{{ url_for('site.index') }}">Home</a>
@@ -34,20 +40,28 @@
                     <li id="nav-settings">
                         <a href="#">{{ g.user.name }}</a>
                     </li>
-		    <li role="presentation" class="dropdown" id="nav-crud">
-
-			    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
-			    <ul class="dropdown-menu">
-				<li><a type="button" class="btn" data-toggle="modal" data-target="#myModalOrg">Organisation</a></li>
-                <li><a type="button" class="btn" data-toggle="modal" data-target="#myModalCon">Contact</a></li>
-                <li><a type="button" class="btn" data-toggle="modal" data-target="#myModalPro">Project</a></li>
-                <li><a type="button" class="btn" data-toggle="modal" data-target="#myModalAct">Activity</a></li>
-                <li><a type="button" class="btn" data-toggle="modal" data-target="#myModalInv">Invoice</a></li>   
-   
-   
-	
-			    </ul>
-		    </li>
+                    <li role="presentation" class="dropdown" id="nav-add">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
+                        <ul class="dropdown-menu">
+                            {% for i in tables %}
+                            {% if i == 'user' %}
+                            {% else %}
+                            <li><a type="button" class="btn" data-toggle="modal" data-target="#myModal{{i.capitalize()[0:3]}}">{{i.capitalize()}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown" id="nav-view">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">View</a>
+                        <ul class="dropdown-menu">
+                            {% for i in tables %}
+                            {% if i == 'user' %}
+                            {% else %}
+                            <li><a type="button" class="btn" href="../view/{{i + 's'}}">{{i.capitalize()}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
                     <li>
                         <a href="{{ url_for('account.signout') }}">Sign out</a>
                     </li>

@@ -15,7 +15,7 @@
         <h4 class="modal-title" id="myModalLabel">Add project</h4>
       </div>
       <div class="modal-body">
-                <form method="post" class="form-signin" action="{{ url_for('crm.add_project') }}">
+                <form method="post" class="form-signin" action="/add/project">
                     {{ ProForm.csrf_token() }}
                     {% for i in ProForm %}
                     {% if i.id == 'csrf_token' %}
@@ -26,9 +26,6 @@
 
   
                     <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add project</button>
-                
-        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary">Add project</button-->
         </form>
       </div>
     </div>

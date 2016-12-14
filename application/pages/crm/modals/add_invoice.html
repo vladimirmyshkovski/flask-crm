@@ -1,7 +1,6 @@
-{% block page_js %}
-    <script src="/pages/crm/modals/add_invoice.js"></script>{% endblock %}
+{% block page_js %}{% endblock %}
 {% block page_css %}  
-    <link rel="stylesheet" href="/pages/crm/modals/add_invoice.css"/>{% endblock %}
+    <link rel="stylesheet" href="/pages/crm/modals/add.css"/>{% endblock %}
 <div class="modal fade" id="myModalInv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -10,7 +9,7 @@
         <h4 class="modal-title" id="myModalLabel">Add invoice</h4>
       </div>
       <div class="modal-body">
-                <form method="post" class="form-signin" action="{{ url_for('crm.add_invoice') }}">
+                <form method="post" class="form-signin" action="/add/invoice">
                     {{ InvForm.csrf_token() }}
                     {% for i in InvForm %}
                     {% if i.id == 'csrf_token' %}
@@ -21,9 +20,6 @@
 
   
                     <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add invoice</button>
-                
-        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary">Add organisation</button-->
         </form>
       </div>
     </div>

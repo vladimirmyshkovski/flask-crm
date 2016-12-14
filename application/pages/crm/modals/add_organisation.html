@@ -11,7 +11,7 @@
         <h4 class="modal-title" id="myModalLabel">Add organisation</h4>
       </div>
       <div class="modal-body">
-                <form method="post" class="form-signin" action="{{ url_for('crm.add_organisation') }}">
+                <form method="post" class="form-signin" action="/add/organisation">
                     {{ OrgForm.csrf_token() }}
                     {% for i in OrgForm %}
                     {% if i.id == 'csrf_token' %}
@@ -22,9 +22,6 @@
 
   
                     <button type="submit" type="submit" class="btn btn-lg btn-primary btn-block">Add organisation</button>
-                
-        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary">Add organisation</button-->
         </form>
       </div>
     </div>
