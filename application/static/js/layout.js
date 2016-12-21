@@ -28,3 +28,10 @@
         $('.flash-message').slideUp('fast');
     }
 })();
+
+$(document).ready(function(){
+    $('.editable editable-click').click(function(){
+    alert('asd')
+})
+
+})

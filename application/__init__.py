@@ -189,7 +189,8 @@ def register_context_processor(app):
         ProForm = AddProjectForm(request.form)
         ActForm = AddActivityForm(request.form)
         InvForm = AddInvoiceForm(request.form)
-        tables = list(db.metadata.tables.keys())
+        tables = db.metadata.tables.keys()
+        tables = [i for i in tables if i != 'created_by']
         return dict(
             OrgForm=OrgForm,
             ConForm=ConForm,

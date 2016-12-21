@@ -9,6 +9,15 @@ from ..forms import AddOrganisationForm, AddContactForm, AddProjectForm, AddActi
 bp = Blueprint('crm', __name__)
 
 
+@bp.route('/post', methods=['GET', 'POST', 'PUT'])
+@UserPermission()
+def post():
+    """POST page"""
+    data = request.form
+    print(data)
+    return render_template('site/index/index.html')
+
+
 @bp.route('/crm', methods=['GET', 'POST'])
 @UserPermission()
 def crm():

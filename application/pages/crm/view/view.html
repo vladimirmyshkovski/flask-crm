@@ -1,63 +1,61 @@
 {% extends "layout.html" %}
 
-{% block page_title %}View organisations{% endblock %}
+{% block page_title %}View {{keyword}}{% endblock %}
 {% block page_js %}
-    <script src="/pages/crm/view/view_organisations.js"></script>
+    <script src="/pages/crm/view/view.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
-    <script src="http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/extensions/editable/bootstrap-table-editable.js"></script>
     <script src="http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/extensions/export/bootstrap-table-export.js"></script>{% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/extensions/export/bootstrap-table-export.js"></script>
+    <script src="/static/js/editable-table.js"></script>
+
+    {% endblock %}
 
 {% block page_css %}
     <link rel="stylesheet" href="/pages/crm/view/view_organisatios.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">{% endblock %}
 
-    {% endblock %}
+
 {% block page_content %}
 <div class="container">
+<p>        <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">superuser</a></p>
+
 
 <table id="table" 
                data-toggle="table"
                data-show-columns="true"
                data-show-toggle="true"
                data-show-pagination-switch="true"
-               data-show-refresh="true"
                data-search="true"
                data-pagination="true"
                data-key-events="true"
                data-show-export="true"
                data-click-to-select="true"
+               data-id-field="id"
 >
     <thead>
         <tr>
             <th data-field="state" data-checkbox="true"></th>
             {% for i in columns %}
-            {% if i == 'created_by' %}
-            {% else %}
             <th data-field={{ i }} data-sortable="true" data-editable="true"> {{ i }} </th>
-            {% endif %}
             {% endfor %}
         </tr>
+    </thead>
         <tbody>
             {% for k in table %}
             <tr>
-                <td class="checkbox"><input data-index="0" name="btSelectItem" type="bs-checkbox"></td>
+                <td class="checkbox"><input name="btSelectItem" type="bs-checkbox"></td>
                 {% for i in columns %}
-                {% if i == 'created_by' %}
-                {% else %}
                 <td>{{k[i]}}</td>
-                {% endif %}
                 {% endfor %}
             </tr>
             {% endfor %}
-        </tbody>
-    </thead>
+
+</tbody>
 </table>
 </div>
 {% endblock %}
