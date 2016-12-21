@@ -18,24 +18,22 @@
     <link rel="stylesheet" href="/pages/crm/view/view_organisatios.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">{% endblock %}
-
-
 {% block page_content %}
 <div class="container">
-<p>        <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">superuser</a></p>
-
 
 <table id="table" 
                data-toggle="table"
                data-show-columns="true"
                data-show-toggle="true"
                data-show-pagination-switch="true"
+               data-page-list="[10, 25, 50, 100, ALL]"
                data-search="true"
                data-pagination="true"
                data-key-events="true"
                data-show-export="true"
                data-click-to-select="true"
                data-id-field="id"
+
 >
     <thead>
         <tr>

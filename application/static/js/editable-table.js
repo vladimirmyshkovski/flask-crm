@@ -320,6 +320,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                 params = {
                     name: this.options.name || '',
                     value: submitValue,
+                    url: window.location.href,
                     pk: pk 
                 };
 
@@ -1387,7 +1388,7 @@ Applied as jQuery method.
         @default 'popup'
         @since 1.4.0        
         **/        
-        mode: 'popup'        
+        mode: 'inline'        
     };
 
     /* 
@@ -2058,7 +2059,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                             value: editable.input.value2submit(editable.value),
                             pk: (typeof editable.options.pk === 'function') ? 
                                 editable.options.pk.call(editable.options.scope) : 
-                                editable.options.pk 
+                                editable.options.pk
                         };
 
                         //additional params

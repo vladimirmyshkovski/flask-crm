@@ -2,7 +2,7 @@
 from flask import render_template, Blueprint, redirect, request, url_for, g, flash, abort
 from ..utils.account import signin_user, signout_user
 from ..utils.permissions import VisitorPermission, UserPermission
-from ..models import db, User, Organisation, Contact, Project, Activity, Invoice
+from ..models import db, User, Organisation, Contact, Project, Activity, Invoice, Base
 from ..forms import AddOrganisationForm, AddContactForm, AddProjectForm, AddActivityForm,AddInvoiceForm
 
 
@@ -13,8 +13,18 @@ bp = Blueprint('crm', __name__)
 @UserPermission()
 def post():
     """POST page"""
-    data = request.form
-    print(data)
+    import sqlalchemy
+    from sqlalchemy import inspect
+    from sqlalchemy.ext.automap import automap_base
+    ewqe = automap_base()
+    for i in ewqe.classes:
+        print(i)
+    tables = list(db.metadata.tables.keys())
+    url = request.form['url']
+    for i in tables:
+        if url.split('/')[-1].startswith(i):
+            i = i.capitalize()
+
     return render_template('site/index/index.html')
 
 
@@ -96,7 +106,7 @@ def view(keyword):
         columns = [o.key for o in Invoice.__table__.columns]
     else:
         abort(404)
-    return render_template('crm/view/view.html', columns=columns, table=table)
+    return render_template('crm/view/view.html', columns=columns, table=table, keyword=keyword)
 
 @bp.route('/update/<table>/<id>', methods=['GET', 'POST'])
 @UserPermission()

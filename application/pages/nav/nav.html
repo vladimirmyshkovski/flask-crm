@@ -46,7 +46,7 @@
                             {% for i in tables %}
                             {% if i == 'user' %}
                             {% else %}
-                            <li><a type="button" class="btn" data-toggle="modal" data-target="#myModal{{i.capitalize()[0:3]}}">{{i.capitalize()}}</a></li>
+                            <li><a data-toggle="modal" data-target="#myModal{{i.capitalize()[0:3]}}">{{i.capitalize()}}</a></li>
                             {% endif %}
                             {% endfor %}
                         </ul>
@@ -57,7 +57,7 @@
                             {% for i in tables %}
                             {% if i == 'user' %}
                             {% else %}
-                            <li><a type="button" class="btn" href="../view/{{i + 's'}}">{{i.capitalize()}}</a></li>
+                            <li><a href="../view/{{i + 's'}}">{{i.capitalize()}}</a></li>
                             {% endif %}
                             {% endfor %}
                         </ul>
