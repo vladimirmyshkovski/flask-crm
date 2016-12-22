@@ -13,17 +13,17 @@ bp = Blueprint('crm', __name__)
 @UserPermission()
 def post():
     """POST page"""
-    import sqlalchemy
-    from sqlalchemy import inspect
-    from sqlalchemy.ext.automap import automap_base
-    ewqe = automap_base()
-    for i in ewqe.classes:
-        print(i)
-    tables = list(db.metadata.tables.keys())
-    url = request.form['url']
-    for i in tables:
-        if url.split('/')[-1].startswith(i):
-            i = i.capitalize()
+    item_id = request.form['pk']
+    request_url = request.form['url']
+    item_value = request.form['value']
+    column_name = request.form['name']
+    baselist = [User, Organisation, Contact, Project, Activity, Invoice]
+    for i in baselist:
+        if str(i.__tablename__) == str(request_url.split('/')[-1][:-1]):
+            i = i.query.get(item_id)
+            setattr(i, column_name, item_value)
+            db.session.add(i)
+            db.session.commit()
 
     return render_template('site/index/index.html')
 
