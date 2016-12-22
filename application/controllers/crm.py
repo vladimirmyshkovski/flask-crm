@@ -40,47 +40,18 @@ def crm():
 @UserPermission()
 def add(keyword):
     """Add """
-    if keyword == 'organisation':
-        form = AddOrganisationForm(request.form)
-        if form.validate():
-            org = Organisation.create(**form.data, created_by=g.user.id)
-            flash(str(keyword).capitalize() + " created successfully!")
-            keyword = str(keyword)+'s'
-            return redirect(url_for('crm.view', keyword=keyword))
-    
-    if keyword == 'contact':
-        form = AddContactForm(request.form)
-        if form.validate():
-            form.org_id.data = form.org_id.data.id
-            con = Contact.create(**form.data, created_by=g.user.id)
-            flash(str(keyword).capitalize() + " created successfully!")
-            keyword = str(keyword)+'s'
-            return redirect(url_for('crm.view', keyword=keyword))
-
-    if keyword == 'project':
-        form = AddProjectForm(request.form)
-        if form.validate():
-            form.project_id.data = form.project_id.data.id
-            flash(str(keyword).capitalize() + " created successfully!")
-            keyword = str(keyword)+'s'
-            return redirect(url_for('crm.view', keyword=keyword))
-
-    if keyword == 'activity':
-        form = AddActivityForm(request.form)
-        if form.validate():
-            form.project_id.data = form.project_id.data.id
-            flash(str(keyword).capitalize() + " created successfully!")
-            keyword = str(keyword)+'s'
-            return redirect(url_for('crm.view', keyword=keyword))
-
-    if keyword == 'invoice':
-        form = AddInvoiceForm(request.form)
-        if form.validate():
-            form.project_id.data = form.project_id.data.id
-            flash(str(keyword).capitalize() + " created successfully!")
-            keyword = str(keyword)+'s'
-            return redirect(url_for('crm.view', keyword=keyword))
-
+    baselist = [User, Organisation, Contact, Project, Activity, Invoice]
+    formlist = [AddOrganisationForm, AddContactForm, AddProjectForm, AddActivityForm,AddInvoiceForm]
+    for i in baselist:
+        if str(i.__tablename__) == keyword:
+            for k in formlist:
+                if (str(str(k.__name__).replace('Add', '')).replace('Form', '')) == str(i.__tablename__).capitalize():
+                    form = k(request.form)
+                    form.project_id.data = form.project_id.data.id
+                    if form.validate():
+                        i.create(**form.data, created_by=g.user.id)
+                        flash(str(keyword).capitalize() + " created successfully!")
+                        return redirect(url_for('crm.view', keyword=keyword))
     return render_template('crm/add/add.html', keyword=keyword, form=form)
 
 
@@ -89,23 +60,11 @@ def add(keyword):
 @UserPermission()
 def view(keyword):
     """View"""
-    if keyword == 'organisations':
-        table = Organisation.query.filter_by(created_by=g.user.id).all()
-        columns = [o.key for o in Organisation.__table__.columns]
-    elif keyword == 'contacts':
-        table = Contact.query.filter_by(created_by=g.user.id).all()
-        columns = [o.key for o in Contact.__table__.columns]
-    elif keyword == 'projects':
-        table = Project.query.filter_by(created_by=g.user.id).all()
-        columns = [o.key for o in Project.__table__.columns]
-    elif keyword == 'activities':
-        table = Activity.query.filter_by(created_by=g.user.id).all()
-        columns = [o.key for o in Activity.__table__.columns]
-    elif keyword == 'invoices':
-        table = Invoice.query.filter_by(created_by=g.user.id).all()
-        columns = [o.key for o in Invoice.__table__.columns]
-    else:
-        abort(404)
+    baselist = [User, Organisation, Contact, Project, Activity, Invoice]
+    for i in baselist:
+        if str(i.__tablename__) == keyword:
+            table = i.query.filter_by(created_by=g.user.id).all()
+            columns = [o.key for o in i.__table__.columns]
     return render_template('crm/view/view.html', columns=columns, table=table, keyword=keyword)
 
 @bp.route('/update/<table>/<id>', methods=['GET', 'POST'])

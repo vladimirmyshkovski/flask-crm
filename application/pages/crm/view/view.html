@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">{% endblock %}
 {% block page_content %}
 <div class="container">
-
 <table id="table" 
                data-toggle="table"
                data-show-columns="true"
@@ -28,7 +27,7 @@
                data-show-pagination-switch="true"
                data-page-list="[10, 25, 50, 100, ALL]"
                data-search="true"
-               data-pagination="true"
+               data-pagination="false"
                data-key-events="true"
                data-show-export="true"
                data-click-to-select="true"
@@ -55,5 +54,6 @@
 
 </tbody>
 </table>
+
 </div>
 {% endblock %}
