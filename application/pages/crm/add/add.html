@@ -4,6 +4,17 @@
 {% block page_title %}Add {{keyword}}{% endblock %}
 {% block page_js %}
     <script src="/pages/crm/add/add.js"></script>{% endblock %}
+        <script>
+$(document).ready(function() {
+  $("#org_id").change(function() {
+    if(this.onChange) {
+        $('#contact_id').show();
+    } else {
+      $('#contact_id').hide();
+    }
+  });
+});
+    </script>
 {% block page_css %}
     <link rel="stylesheet" href="/pages/crm/add/add.css"/>{% endblock %}
 {% block page_content %}

@@ -46,12 +46,28 @@ def add(keyword):
         if str(i.__tablename__) == keyword:
             for k in formlist:
                 if (str(str(k.__name__).replace('Add', '')).replace('Form', '')) == str(i.__tablename__).capitalize():
-                    form = k(request.form)
-                    form.project_id.data = form.project_id.data.id
+                    form = k()
+                    i = i()
+                    for key, value in form.data.items():
+                        val = getattr(form, key).data
+                        print('val is : ' + str(val))
+                        if key.endswith('_id'):
+                            continue
+                            val = val.id
+                            print(val)
+                        setattr(i, key, val)
+                        print(setattr(i, key, val))
+                        print('i is : ' + str(i))
+                        print('KEY is a: ' + str(key) + ', VALUE of form.data: ' + str(value))
+                    print('continue!')
                     if form.validate():
-                        i.create(**form.data, created_by=g.user.id)
-                        flash(str(keyword).capitalize() + " created successfully!")
+                        print('form is validate!')
+                        print(form.data)
+                        #form.org_id.data = form.org_id.data.id
+                        i.create(created_by=g.user.id)
                         return redirect(url_for('crm.view', keyword=keyword))
+                    return render_template('crm/add/add.html', keyword=keyword, form=form)
+
     return render_template('crm/add/add.html', keyword=keyword, form=form)
 
 
@@ -66,8 +82,9 @@ def view(keyword):
             table = i.query.filter_by(created_by=g.user.id).all()
             columns = [o.key for o in i.__table__.columns]
     return render_template('crm/view/view.html', columns=columns, table=table, keyword=keyword)
-
+'''
 @bp.route('/update/<table>/<id>', methods=['GET', 'POST'])
 @UserPermission()
 def update(table, id):
     pass
+'''

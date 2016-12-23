@@ -27,4 +27,4 @@ class Invoice(Base):
 
 
 	def __repr__(self):
-		return '<Invoice %s>' % self.amount
+		return self.id

@@ -49,11 +49,14 @@
 
 
 {# Flash message #}
-{% with message = get_flashed_messages()[0] %}
-    {% if message %}
-        <div class="alert alert-info flash-message">{{ message }}</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-info flash-message {{category}}">{{message}}</div>
+        {% endfor %}
     {% endif %}
 {% endwith %}
+
 {% include 'nav/nav.html' %}
 
 {# Please DO NOT change the id below #}

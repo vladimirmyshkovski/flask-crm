@@ -35,4 +35,4 @@ class Project(Base):
         return p
 
     def __repr__(self):
-        return '<Project %s>' % self.name
+        return str(self.id)

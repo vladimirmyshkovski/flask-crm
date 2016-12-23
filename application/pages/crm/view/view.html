@@ -11,6 +11,7 @@
     <script src="http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/extensions/export/bootstrap-table-export.js"></script>
     <script src="/static/js/editable-table.js"></script>
+    <script src="/static/js/bootstrap-table-filter-control.js"></script>
 
     {% endblock %}
 
@@ -20,7 +21,9 @@
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">{% endblock %}
 {% block page_content %}
 <div class="container">
+          <button id="remove" class="btn btn-danger" disabled>Delete</button>
 <table id="table" 
+               data-toolbar="#remove"
                data-toggle="table"
                data-show-columns="true"
                data-show-toggle="true"
@@ -32,6 +35,10 @@
                data-show-export="true"
                data-click-to-select="true"
                data-id-field="id"
+               data-mobile-responsive="true"
+               data-check-on-init="true"
+               data-filter-control="true"
+               data-filter-show-clear="true"
 
 >
     <thead>

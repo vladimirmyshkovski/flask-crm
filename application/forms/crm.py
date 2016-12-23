@@ -15,6 +15,12 @@ def available_contacts():
 def available_projects():
 	return Project.query.all()
 
+def available_invoices():
+	return Invoice.query.all()
+
+def available_activities():
+	return Activity.query.all()
+
 
 class AddOrganisationForm(ModelForm, Form):
 	"""Add organisation form"""
@@ -30,6 +36,7 @@ class AddContactForm(ModelForm, Form):
 	class Meta:
 		model = Contact
 
+
 class AddProjectForm(ModelForm, Form):
 	"""Add project form"""
 	org_id = QuerySelectField('Organisation', query_factory=available_organisations, get_label='name')
@@ -37,6 +44,7 @@ class AddProjectForm(ModelForm, Form):
 
 	class Meta:
 		model = Project
+
 
 class AddActivityForm(ModelForm, Form):
 	"""Add project form"""
@@ -46,6 +54,7 @@ class AddActivityForm(ModelForm, Form):
 
 	class Meta:
 		model = Activity
+
 
 class AddInvoiceForm(ModelForm, Form):
 	"""Add invoice form"""

@@ -24,7 +24,8 @@ class Activity(Base):
 			db.session.commit()
 		except IntegrityError: 
 			db.session.rollback()
+			print('session rollback')
 		return a
 
 	def __repr__(self):
-		return '<Activity %s>' % self.subject
+		return self.id

@@ -23,8 +23,9 @@ class Organisation(Base):
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
 
     contacts = db.relationship('Contact', backref="organisation")
-    activities = db.relationship('Activity', backref='contact_lookup')
+    activities = db.relationship('Activity', backref='organisation')
 
+    '''
     @staticmethod
     def create(**kwargs):
         o = Organisation(**kwargs)
@@ -34,6 +35,7 @@ class Organisation(Base):
         except IntegrityError:
             db.session.rollback()
         return o
-
+    '''
+    
     def __repr__(self):
-        return '<Organisation %s>' % self.name
+        return str(self.id)
