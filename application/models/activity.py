@@ -16,16 +16,5 @@ class Activity(Base):
 	project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 	created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
 
-	@staticmethod
-	def create(**kwargs):
-		a = Activity(**kwargs)
-		db.session.add(a)
-		try:
-			db.session.commit()
-		except IntegrityError: 
-			db.session.rollback()
-			print('session rollback')
-		return a
-
 	def __repr__(self):
 		return self.id

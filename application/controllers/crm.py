@@ -44,27 +44,18 @@ def add(keyword):
     formlist = [AddOrganisationForm, AddContactForm, AddProjectForm, AddActivityForm,AddInvoiceForm]
     for i in baselist:
         if str(i.__tablename__) == keyword:
-            for k in formlist:
-                if (str(str(k.__name__).replace('Add', '')).replace('Form', '')) == str(i.__tablename__).capitalize():
-                    form = k()
-                    i = i()
-                    for key, value in form.data.items():
-                        val = getattr(form, key).data
-                        print('val is : ' + str(val))
-                        if key.endswith('_id'):
-                            continue
-                            val = val.id
-                            print(val)
-                        setattr(i, key, val)
-                        print(setattr(i, key, val))
-                        print('i is : ' + str(i))
-                        print('KEY is a: ' + str(key) + ', VALUE of form.data: ' + str(value))
-                    print('continue!')
+            for f in formlist:
+                if (str(str(f.__name__).replace('Add', '')).replace('Form', '')) == str(i.__tablename__).capitalize():
+                    form = f()
                     if form.validate():
-                        print('form is validate!')
-                        print(form.data)
-                        #form.org_id.data = form.org_id.data.id
-                        i.create(created_by=g.user.id)
+                        for key, value in form.data.items():
+                            cal = getattr(form, key)
+                            if key.endswith('_id') is True:
+                                print(key)
+                                cal.data = cal.data.id
+                                #form.org_id.data = val.id
+                                setattr(form, key, cal.data)
+                        i.create(**form.data, created_by=g.user.id)
                         return redirect(url_for('crm.view', keyword=keyword))
                     return render_template('crm/add/add.html', keyword=keyword, form=form)
 

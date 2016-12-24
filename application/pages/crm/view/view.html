@@ -30,7 +30,7 @@
                data-show-pagination-switch="true"
                data-page-list="[10, 25, 50, 100, ALL]"
                data-search="true"
-               data-pagination="false"
+               data-pagination="true"
                data-key-events="true"
                data-show-export="true"
                data-click-to-select="true"
@@ -43,9 +43,9 @@
 >
     <thead>
         <tr>
-            <th data-field="state" data-checkbox="true"></th>
+            <th data-checkbox="true"></th>
             {% for i in columns %}
-            <th data-field={{ i }} data-sortable="true" data-editable="true"> {{ i }} </th>
+            <th data-field={{ i }} data-sortable="true" {% if loop.first %} data-firstsort="desc" data-defaultsort="desc" {% endif %} data-editable="true"> {{ i }} </th>
             {% endfor %}
         </tr>
     </thead>

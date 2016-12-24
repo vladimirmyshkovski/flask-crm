@@ -24,15 +24,6 @@ class Project(Base):
     activities = db.relationship('Activity', backref='project')
     invoices = db.relationship('Invoice', backref='project')
 
-    @staticmethod
-    def create(**kwargs):
-        p = Project(**kwargs)
-        db.session.add(p)
-        try:
-            db.session.commit()
-        except IntegrityError:
-            db.session.rollback()
-        return p
 
     def __repr__(self):
         return str(self.id)

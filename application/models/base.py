@@ -1,5 +1,5 @@
 from ._base import db
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, InterfaceError
 from flask import flash
 
 class Base(db.Model):
@@ -19,5 +19,8 @@ class Base(db.Model):
             flash((c.__tablename__).capitalize() + u' created successfully!', 'success')
         except IntegrityError:
             db.session.rollback()
-            flash((c.__tablename__).capitalize() + u' created failed!', 'error')        
+            flash((c.__tablename__).capitalize() + u' created failed!' + u' IntegrityError', 'error')
+        except InterfaceError:
+            db.session.rollback()
+            flash((c.__tablename__).capitalize() + u' created failed!' + u' InterfaceError', 'error')
         return c

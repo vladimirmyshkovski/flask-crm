@@ -15,16 +15,6 @@ class Invoice(Base):
 	created_by = db.Column(db.Integer, db.ForeignKey('user.id'))
 	project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
-	@staticmethod
-	def create(**kwargs):
-		i = Invoice(**kwargs)
-		db.session.add(i)
-		try:
-			db.session.commit()
-		except IntegrityError:
-			db.session.rollback()
-		return i
-
 
 	def __repr__(self):
 		return self.id
